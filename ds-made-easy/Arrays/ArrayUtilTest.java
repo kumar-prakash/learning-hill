@@ -28,6 +28,17 @@ public class ArrayUtilTest {
 		long endTime = System.currentTimeMillis();
 		System.out.println("Execution time: " + (endTime - startTime));
 	}
+	
+	public static void searchSortedPivotedTest() {
+		int arr[] = new int[] {40, 50, 60, 70, 80, 10, 20, 30};
+		int arr1[] = new int[] {40, 41, 20, 30, 35, 36, 37, 38, 39};
+		//System.out.println(ArrayUtil.searchSortedPivoted(arr, 60, 0, arr.length - 1));
+		System.out.println(ArrayUtil.searchSortedPivoted(arr1, 36, 0, arr1.length - 1));
+		System.out.println(ArrayUtil.searchSortedPivoted(arr1, 20, 0, arr1.length - 1));
+		System.out.println(ArrayUtil.searchSortedPivoted(arr1, 41, 0, arr1.length - 1));
+	}
+	
+	
 	public static void main(String[] args) {
 		int arr[] = makeLargeData(1000000);
 		hasSumPairTestV1(arr);

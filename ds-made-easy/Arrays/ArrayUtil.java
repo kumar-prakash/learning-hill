@@ -63,6 +63,65 @@ public class ArrayUtil {
 		return false;
 	}
 	
+	public static int findMajorityElementV1(int arr[]) {
+		sortArray(arr, 0, arr.length - 1);
+		int element = arr[0];
+		int count = 0;
+		int maxCount = 1;
+		for(int i = 1; i < arr.length; i++) {
+			if(element == arr[i] ) {
+				count++;
+			} else {
+				element = arr[i];
+				if(count > maxCount) {
+					maxCount = count;
+				}
+				maxCount = 1;
+			}
+		}
+		return element;
+	}
+    
+	public static boolean searchSortedPivoted(int [] arr, int target, int start, int end) {
+		if(start > end) {
+			return false;
+		}
+		int mid = (start + end) / 2;
+		if(arr[mid] == target) {
+			return true;
+		}
+		
+		if(arr[mid] > arr[start]) {
+			if(target > arr[start] && target < arr[mid]) {
+				// go left
+				return searchSortedPivoted(arr, target, start, mid -1);
+			}
+			if(target > arr[start] && target > arr[mid]) {
+				// go right
+				return searchSortedPivoted(arr, target, mid + 1, end);
+			}
+			if(target < arr[start] && target < arr[mid] ) {
+				// go right
+				return searchSortedPivoted(arr, target, mid + 1, end);
+			}
+		} else {
+			if(target > arr[mid] && target < arr[end]) {
+				// go right
+				return searchSortedPivoted(arr, target, mid + 1, end);
+			}
+			if(target < arr[mid] && target < arr[start] ) {
+				// go left
+				return searchSortedPivoted(arr, target, start, mid -1);
+			}
+			if(target > arr[mid] && target > arr[start]) {
+				// go left
+				return searchSortedPivoted(arr, target, start, mid -1);
+			}
+		}
+		
+		return false;
+	}
+	
 	public static void printArr(int arr[]) {
 		for(int i = 0; i < arr.length; i++) {
 			System.out.print(arr[i] + " ");

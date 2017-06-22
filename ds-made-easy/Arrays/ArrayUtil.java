@@ -82,45 +82,67 @@ public class ArrayUtil {
 		return element;
 	}
     
-	public static boolean searchSortedPivoted(int [] arr, int target, int start, int end) {
-		if(start > end) {
-			return false;
-		}
-		int mid = (start + end) / 2;
-		if(arr[mid] == target) {
-			return true;
-		}
-		
-		if(arr[mid] > arr[start]) {
-			if(target > arr[start] && target < arr[mid]) {
-				// go left
-				return searchSortedPivoted(arr, target, start, mid -1);
-			}
-			if(target > arr[start] && target > arr[mid]) {
-				// go right
-				return searchSortedPivoted(arr, target, mid + 1, end);
-			}
-			if(target < arr[start] && target < arr[mid] ) {
-				// go right
-				return searchSortedPivoted(arr, target, mid + 1, end);
-			}
-		} else {
-			if(target > arr[mid] && target < arr[end]) {
-				// go right
-				return searchSortedPivoted(arr, target, mid + 1, end);
-			}
-			if(target < arr[mid] && target < arr[start] ) {
-				// go left
-				return searchSortedPivoted(arr, target, start, mid -1);
-			}
-			if(target > arr[mid] && target > arr[start]) {
-				// go left
-				return searchSortedPivoted(arr, target, start, mid -1);
-			}
-		}
-		
-		return false;
+	public static boolean searchSortedPivoted(int arr[], int start, int end, int target) {
+	if (start > end) {
+	    return false;
 	}
+	int mid = (start + end) / 2;
+	if (arr[mid] == target || arr[start] == target || arr[end] == target) {
+	    return true;
+	}
+	
+	if(target > arr[start]) {
+	    if(arr[mid] > arr[start]) {
+		if(target < arr[mid]) {
+		    // go left
+		    return searchSortedPivoted(arr, start, mid - 1, target);
+		} else {
+		    // go right
+		    return searchSortedPivoted(arr, mid + 1, end, target);
+		}
+	    } else {
+		//go left
+		return searchSortedPivoted(arr, start, mid - 1, target);
+	    }
+	}
+	if(target < arr[start]) {
+	    if(arr[mid] <= arr[end]) {
+		if(target > arr[mid]) {
+		    // go right
+		    return searchSortedPivoted(arr, mid + 1, end, target);
+		} else {
+		    // go left
+		    return searchSortedPivoted(arr, start, mid - 1, target);
+		}
+	    } else {
+		//go right
+		return searchSortedPivoted(arr, mid + 1, end, target);
+	    }
+	}
+	return false;
+    }
+    
+    public static int findPivot(int arr[], int start, int end) {
+	int midIndex = (start + end) / 2;
+	if(midIndex == end || arr[midIndex] > arr[midIndex + 1]) {
+	    return midIndex;
+	} else {
+	    if(arr[midIndex] < arr[start] ) {
+		return findPivot(arr, start, midIndex - 1);
+	    } else {
+		return findPivot(arr, midIndex + 1, end);
+	    }
+	}
+    }
+    
+    public static boolean searchSortedPivotedV2(int arr[], int start, int end, int target) {
+	int pivot = findPivot(arr, start, end);
+	if(target >= arr[start] && target <= arr[pivot]) {
+	   return searchSortedArray(arr, start, pivot, target) == -1 ? false : true; 
+	} else {
+	    return searchSortedArray(arr, pivot, end, target) == -1 ? false : true;
+	}
+    }
 	
 	public static void printArr(int arr[]) {
 		for(int i = 0; i < arr.length; i++) {

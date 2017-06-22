@@ -38,6 +38,13 @@ public class ArrayUtilTest {
 		System.out.println(ArrayUtil.searchSortedPivoted(arr1, 41, 0, arr1.length - 1));
 	}
 	
+	public static void searchSortedPivotedArrayTestV2() {
+		int arr[] = new int[] {40, 50, 60, 70, 80, 10, 20, 30};
+		int arr1[] = new int[] {40, 41, 20, 30, 35, 36, 37, 38, 39};
+		System.out.println(ArrayUtil.searchSortedPivotedV2(arr1, 0, arr1.length - 1, 36));
+		System.out.println(ArrayUtil.searchSortedPivotedV2(arr, 0, arr.length - 1, 20));
+		System.out.println(ArrayUtil.searchSortedPivotedV2(arr1, 0, arr1.length - 1, 39));
+	    }
 	
 	public static void main(String[] args) {
 		int arr[] = makeLargeData(1000000);
